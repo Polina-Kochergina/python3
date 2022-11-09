@@ -3,4 +3,7 @@ import os
 # вывести текущую директорию
 print("Текущая деректория:", os.getcwd())
 
-print("start")
+for files in os.walk("."):  
+    for filename in files:
+        print(filename)
+
