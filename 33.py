@@ -1,6 +1,7 @@
-import os
+import os.path
  
 path1 = os.getcwd()
+path2 = ('D:\\vs_code\python\python1')
 
 def Ls_size(path):
     files_list = os.listdir(path)
@@ -11,16 +12,22 @@ def Ls_size(path):
 
     print(len(size_of_file))
 
-    for idx in range(len(files_list)-1):
-        if os.path.isfile(files_list[idx]) == False:
-            files_list.pop(idx)
-            size_of_file.pop(idx)
-
-    directory= dict(zip(files_list, size_of_file))
+    directory = dict(zip(files_list, size_of_file))
     print("dir = ", directory)
 
 
-    sorted_directory = dict(sorted(directory.items(), reverse=True))
-    print("sorted =", sorted_directory)
+    sorted_directory = dict(sorted(directory.items(), key = lambda x: x[1], reverse=True))
+    print("sorted = ", sorted_directory)
 
-Ls_size("D:\\vs_code\python\python2")
+
+    for key, value in sorted_directory.items():
+        # print(key, value, 'k and v')
+        if os.path.isdir(key):
+            continue
+        else:
+            print(f"{key} ':' {value} B")
+
+    print("path", path)
+
+Ls_size(path2)
+# Ls_size(path1)
