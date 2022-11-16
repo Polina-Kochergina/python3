@@ -1,29 +1,32 @@
-import time
-print(time.localtime())
+import datetime as dt
 
-time = time.localtime()
 
-if time[6] > 5:
-    print("relax!!!")
-else:
-    finish = (34200+5700, 34200+2*5700+600, 34200+3*5700+600*2+40*60, 34200+4*5700+600*3+40*60)
-    now_s = time[3]*3600 + time[4]*60 + time[5]
-    
-    if time[3]*3600 + time[4]*60 + time[5] < 34200:
-        print("classes have not started yet")
-    elif time[3]*3600 + time[4]*60 + time[5] > 61200:
-        print("classes are over!")
-    elif (time[3]*3600 + time[4]*60 + time[5] < 34200+5400+600) and (time[3]*3600 + time[4]*60 + time[5] > 34200+5400):
-        print("Break time!")
-    elif (time[3]*3600 + time[4]*60 + time[5] < 34200+2*5400+60*50) and (time[3]*3600 + time[4]*60 + time[5] > 34200+2*5400):
-        print("Break time!")
-    elif (time[3]*3600 + time[4]*60 + time[5] < 34200+3*5400+600) and (time[3]*3600 + time[4]*60 + time[5] > 34200+3*5400):
-        print("Break time!")
+def timetable(now):
+    if dt.datetime.today().weekday() > 3:
+        print("relax!!!")
     else:
-        a = []
-        for i in range(len(finish)):
-            if finish[i]-now_s>0:
-                a.append(finish[i]-now_s)
+        finish = (dt.timedelta(hours=11, minutes=5), dt.timedelta(hours=12, minutes=50),
+         dt.timedelta(hours=15, minutes=15), dt.timedelta(hours=17, minutes=0))
+        n = dt.timedelta(hours = now.hour, minutes = now.minute)
+        
+        if now <= dt.time(9,30):
+            print("classes have not started yet")
+        elif now > dt.time(17,00):
+            print("classes are over!")
+        elif (now > dt.time(11,5)) and (now < dt.time(11,15)):
+            print("Break time!")
+        elif (now > dt.time(12,50)) and (now < dt.time(13,40)):
+            print("Break time!")
+        elif (now > dt.time(15,15)) and (now < dt.time(15,25)):
+            print("Break time!")
+        elif (now > dt.time(17,0)) and (now < dt.time(17,10)):
+            print("Break time!")
+        else:
+            a = []
+            for i in range(len(finish)):
+                if finish[i].seconds - n.seconds > 0:
+                    a.append(finish[i] - n)
+            print(f"Until the end of the lesson {min(a)} minutes")
 
-        print(f"Until the end of the lesson {int(min(a)/60)} minutes")
 
+timetable(dt.datetime.now().time())
