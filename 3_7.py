@@ -1,7 +1,7 @@
 import os.path
  
 path1 = os.getcwd()
-path2 = ('D:\\vs_code\python\python1')
+# path2 = ('D:\\vs_code\python\python1')
 
 def Ls_size(path):
     files_list = os.listdir(path)
@@ -21,7 +21,7 @@ def Ls_size(path):
 
 
     for key, value in sorted_directory.items():
-        # print(key, value, 'k and v')
+        
         if os.path.isdir(key):
             continue
         else:
@@ -29,5 +29,5 @@ def Ls_size(path):
 
     print("path", path)
 
-Ls_size(path2)
-# Ls_size(path1)
+# Ls_size(path2)
+Ls_size(path1)
